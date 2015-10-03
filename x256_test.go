@@ -3,7 +3,6 @@ package x256
 import (
   "testing" 
   "github.com/stretchr/testify/assert"
-  "fmt"
 )
 
 func TestCode(t *testing.T) {
