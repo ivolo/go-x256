@@ -7,7 +7,7 @@ import (
 
 // x256 available colors 
 // http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-var codes []string = []string{
+var codes = []string{
   "000000",
   "800000",
   "008000",
@@ -265,28 +265,22 @@ var codes []string = []string{
   "e4e4e4",
   "eeeeee"}
 
-/**
- * Get the closest x256 color index to the `r`, `g`, `b` color provided
- * @param {uint8} r Red
- * @param {uint8} g Green
- * @param {uint8} b Green
- */
-
-func Code(r, g, b uint8) (uint8) {
-  var closest_index uint8, closest_distance float64 = 0, 0
+// Code representing the cloest x256 color code to the rgb value provided
+func Code(r, g, b uint8) int {
+  closestIndex, closestDistance := 0, float64(0)
   var c = []uint8{ r, g, b }
-  for index, hex_str := range(codes) {
-    distance := distance(decode(hex_str), c)
-    if closest_distance == 0 || distance < closest_distance {
-      closest_distance = distance
-      closest_index = uint8(index)
+  for index, hexStr := range(codes) {
+    dist := distance(c, decode(hexStr))
+    if closestDistance == 0 || dist < closestDistance {
+      closestDistance = dist
+      closestIndex = index
     }
   }
-  return closest_index
+  return closestIndex
 }
 
 // decode hex into rgb byte array
-func decode(h string) ([]uint8) {
+func decode(h string) []uint8 {
   bytes, err := hex.DecodeString(h)
   if err != nil {
     panic(err)
@@ -295,7 +289,7 @@ func decode(h string) ([]uint8) {
 }
 
 // get the distance between two colors
-func distance(a, b []uint8) (float64) {
+func distance(a, b []uint8) float64 {
   return math.Sqrt(
     math.Pow(float64(a[0]-b[0]), 2) + 
     math.Pow(float64(a[1]-b[1]), 2) + 

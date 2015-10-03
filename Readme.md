@@ -10,4 +10,3 @@ import "github.com/ivolo/go-x256"
 code := x256.Code(220,40,150)
 // 162
 ```
-
