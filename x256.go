@@ -7,7 +7,7 @@ import (
 
 // x256 available colors 
 // http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-var codes = []string{
+var hexCodes = []string{
   "000000",
   "800000",
   "008000",
@@ -265,27 +265,33 @@ var codes = []string{
   "e4e4e4",
   "eeeeee"}
 
+// byte codes
+var codes [][]uint8
+
+// parse hex codes
+func init() {
+  codes = make([][]uint8, len(hexCodes))
+  for i, h := range(hexCodes) {
+    bytes, err := hex.DecodeString(h)
+    if err != nil {
+      panic(err)
+    }
+    codes[i] = []uint8{ bytes[0], bytes[1], bytes[2] }
+  }
+}
+
 // Code representing the cloest x256 color code to the rgb value provided
 func ClosestCode(r, g, b uint8) int {
   closestIndex, closestDistance := 0, float64(0)
   var c = []uint8{ r, g, b }
-  for index, hexStr := range(codes) {
-    dist := distance(c, decode(hexStr))
+  for index, h := range(codes) {
+    dist := distance(c, h)
     if closestDistance == 0 || dist < closestDistance {
       closestDistance = dist
       closestIndex = index
     }
   }
   return closestIndex
-}
-
-// decode hex into rgb byte array
-func decode(h string) []uint8 {
-  bytes, err := hex.DecodeString(h)
-  if err != nil {
-    panic(err)
-  }
-  return []uint8{ bytes[0], bytes[1], bytes[2] }
 }
 
 // get the distance between two colors
