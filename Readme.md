@@ -7,6 +7,6 @@ Finds the nearest [xterm 256 color code](http://www.calmar.ws/vim/256-xterm-24bi
 ```go
 import "github.com/ivolo/go-x256"
 
-code := x256.Code(220,40,150)
+code := x256.ClosestCode(220,40,150)
 // 162
 ```

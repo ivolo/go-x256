@@ -266,9 +266,9 @@ var codes = []string{
   "eeeeee"}
 
 // Code representing the cloest x256 color code to the rgb value provided
-func Code(r, g, b int) int {
+func ClosestCode(r, g, b uint8) int {
   closestIndex, closestDistance := 0, float64(0)
-  var c = []int{ r, g, b }
+  var c = []uint8{ r, g, b }
   for index, hexStr := range(codes) {
     dist := distance(c, decode(hexStr))
     if closestDistance == 0 || dist < closestDistance {
@@ -280,16 +280,16 @@ func Code(r, g, b int) int {
 }
 
 // decode hex into rgb byte array
-func decode(h string) []int {
+func decode(h string) []uint8 {
   bytes, err := hex.DecodeString(h)
   if err != nil {
     panic(err)
   }
-  return []int{ int(bytes[0]), int(bytes[1]), int(bytes[2]) }
+  return []uint8{ bytes[0], bytes[1], bytes[2] }
 }
 
 // get the distance between two colors
-func distance(a, b []int) float64 {
+func distance(a, b []uint8) float64 {
   return math.Sqrt(
     math.Pow(float64(a[0]-b[0]), 2) + 
     math.Pow(float64(a[1]-b[1]), 2) + 

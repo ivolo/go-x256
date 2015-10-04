@@ -2,10 +2,10 @@ package x256
 
 import (
   "testing" 
-  "github.com/stretchr/testify/assert"
+  "github.com/stretchr/testify/assert"  
 )
 
-func TestCode(t *testing.T) {
+func TestClosestCode(t *testing.T) {
   assert := assert.New(t)
-  assert.Equal(Code(220,40,150), 162, "Closest index must be 162")
+  assert.Equal(ClosestCode(220,40,150), 162, "Closest index must be 162")
 }
