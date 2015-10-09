@@ -29,6 +29,6 @@ buffer.WriteString("woo!")
 buffer.WriteString(ansi.ColorCode("reset"))
 ```
 
-Go ahead, [make something funny](https://github.com/ivolo/giffy): 
+Then [make something funny](https://github.com/ivolo/giffy): 
 
 ![](https://cloud.githubusercontent.com/assets/658544/10387602/9147f6be-6e17-11e5-8521-0f3d71fa3878.gif)
